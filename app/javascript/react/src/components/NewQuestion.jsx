@@ -35,6 +35,9 @@ const createQuestion = async () =>{
    try{
     const response = await axios.post(`/api/v1/questions`,{title:title,tag:tag})
 console.log(response.data)
+if (response.data.data.includes("Title has already been taken")){
+  alert("The title is already taken")
+}
    }catch (error){
     console.error(error)
    }

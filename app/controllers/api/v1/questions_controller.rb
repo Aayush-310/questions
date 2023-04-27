@@ -20,14 +20,30 @@ class Api::V1::QuestionsController <ApplicationController
     end
     def create
         @question = Question.new(question_params)
+        
         if @question.save
-            render json: {data: @question , status: "success"},status: :ok
-
+          render json: { data: @question, status: "success" }, status: :ok
         else
-            render json: {data: @question.errors.full_messages, status:"failure"},status: :unprocessable_entity
-            # format.json { render json: @question.errors, status: :unprocessable_entity }
+          error_message = @question.errors.full_messages.first
+      
+          if error_message.include?("has already been taken")
+            render json: { data: error_message, status: "failure" }, status: :unprocessable_entity
+          else
+            render json: { data: @question.errors.full_messages, status: "failure" }, status: :unprocessable_entity
+          end
         end
-    end
+      end
+      
+    # def create
+    #     @question = Question.new(question_params)
+    #     if @question.save
+    #         render json: {data: @question , status: "success"},status: :ok
+
+    #     else
+    #         render json: {data: @question.errors.full_messages, status:"failure"},status: :unprocessable_entity
+    #         # format.json { render json: @question.errors, status: :unprocessable_entity }
+    #     end
+    # end
     def destroy
         @question.destroy
         respond_to do |format|
