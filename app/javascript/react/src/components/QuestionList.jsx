@@ -19,6 +19,12 @@ const QuestionList = () => {
     const [showAlert,setShowAlert] = useState(false)
     const [showLoader,setShowLoader]= useState(true)
 
+    const deleteQuestion = (id) => {
+        const updatedQuestionList = questionList.filter(question => question.id !== id)
+        setQuestionList(updatedQuestionList)
+      }
+      
+
     //fetching data
     const questionUrl = "http://127.0.0.1:3000/api/v1/questions"
     const fetchQuestionList = () => { 
@@ -115,7 +121,7 @@ fetch(questionUrl + `?tags=${questionsTags[event.target.value].label}`)
             </select>
             { questionList.length > 0 ? 
             questionList.map((question)=>
-            <QuestionBox question = {question} key={question.id}/>):<Loader showLoader = {showLoader}/>
+            <QuestionBox question = {question} key={question.id} onDelete={deleteQuestion}/>):<Loader showLoader = {showLoader}/>
             }
             {
                 showAlert &&  <EmptyQuestionMessage tagname = {questionsTags[selectedOption].label}/>

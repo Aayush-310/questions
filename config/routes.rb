@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   #rails views can also be used seperately
   namespace :api do 
     namespace :v1 do 
-      resources :questions, only: [:index,:create] do
+      resources :questions, only: [:index,:create,:destroy] do
         member do
           put :update_counter
         end

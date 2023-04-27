@@ -26,7 +26,7 @@ const QuestionBox = (props)=>{
           }
           // remove the question from the list of questions in the parent component
           // you can do this by passing a callback function to the QuestionBox component as a prop and calling it here
-        //   onDelete();
+          props.onDelete(props.question.id);
         } catch (error) {
           console.error(error);
         }
