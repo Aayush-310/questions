@@ -21,7 +21,7 @@ class Api::V1::QuestionsController <ApplicationController
     def create
         @question = Question.new(question_params)
         
-        if @question.save
+        if @question.save 
           render json: { data: @question, status: "success" }, status: :ok
         else
           error_message = @question.errors.full_messages.first
